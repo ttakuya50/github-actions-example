@@ -1,0 +1,56 @@
+name: pre release
+
+on:
+  # プッシュでワークフローを起動する
+  # ただしreleaseブランチに対してのみ
+  push:
+    branches:
+      - release/*
+
+jobs:
+  createPullRequest:
+    name: create pull request
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+#      - name: Create report file
+#        run: date +%s > report.txt
+      - name: Create Pull Request
+#        id: cpr
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+#          commit-message: Add report file
+#          committer: GitHub <noreply@github.com>
+#          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          title: echo ${{ github.head_ref }} | sed -e "s/release\//Release\ /g"
+          body: |
+            ## 概要
+
+            * 機能追加、修正内容etc
+
+            ## 仕様書
+
+            * [仕様書URL](http://xxx)
+
+            ## 技術的変更点概要
+
+            * なにを、どう、変更したか
+            * 何のライブラリを追加したか
+            * 複雑なアルゴリズムの説明
+
+          #          labels: report, automated pr
+          assignees: ${{GITHUB_ACTOR}}
+#          reviewers: peter-evans
+#          team-reviewers: owners, maintainers
+#          milestone: 1
+#          project: Example Project
+#          project-column: To do
+          draft: true
+          branch: ${{ github.head_ref }}
+          base: master
+#          request-to-parent: false
+#      - name: Check outputs
+#        run: |
+#          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+#          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
