@@ -5,7 +5,7 @@ on:
   # ただしreleaseブランチに対してのみ
   push:
     branches:
-      - release/*
+      - 'releases/**'
 
 jobs:
   createPullRequest:
