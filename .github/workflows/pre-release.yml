@@ -40,7 +40,7 @@ jobs:
             * 複雑なアルゴリズムの説明
 
           #          labels: report, automated pr
-          assignees: ${{GITHUB_ACTOR}}
+          assignees: $GITHUB_ACTOR
 #          reviewers: peter-evans
 #          team-reviewers: owners, maintainers
 #          milestone: 1
