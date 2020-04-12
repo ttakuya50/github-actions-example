@@ -36,8 +36,8 @@ jobs:
           #          project: Example Project
           #          project-column: To do
           draft: false
-#          branch: ${{ github.head_ref }}
-          base: ${{ github.head_ref }}
+          branch: ${{ github.head_ref }}
+          base: master
       #          request-to-parent: false
       - name: Check outputs
         run: |
