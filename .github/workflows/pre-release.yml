@@ -15,37 +15,66 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-#          ref: ${{ github.head_ref }}
-      - name: create title
+      - name: get Organization name
+          run: |
+            ORGANIZATION=$(echo ${{ GITHUB_REPOSITORY }} | sed -e 's/\/.*//')
+            echo "ORGANIZATION = $ORGANIZATION"
+            echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
+      - name: create pull request title
         run: |
-          TITLE=$(echo ttttttttt)
+          TITLE=$(echo ${{ github.head_ref }} | sed -e "s/release\//Release\ /g")
           echo "TITLE = $TITLE"
           echo "::set-env name=TITLE::$(echo $TITLE)"
       - name: Create Pull Request
-        #        id: cpr
-        uses: peter-evans/create-pull-request@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: ${{ env.TITLE }}
-          body: |
-            New report
-          assignees: ${{github.actor}}
-          #          reviewers: peter-evans
-          #          team-reviewers: owners, maintainers
-          #          milestone: 1
-          #          project: Example Project
-          #          project-column: To do
-          draft: false
-          branch: release/20200412_03
-          base: master
-      #          request-to-parent: false
+        env:
+          URL: https://api.github.com
+          BODY: body no test
+          HEADER: application/vnd.github.sailor-v-preview+json
+        run: |
+          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+               "https://api.github.com/repos/${{ GITHUB_REPOSITORY }}/pulls" \
+               -d "{"title": "TITLE", "head": "${{ env.ORGANIZATION }}:${{ github.head_ref }}", "base": "master" , "draft":"false"}"
       - name: Check outputs
         run: |
-          echo "${{ github.ref }}"
-          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+          echo "${{ env.TITLE }}"
+          echo "${{ env.ORGANIZATION }}"
+
+#jobs:
+#  createPullRequest:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+##          ref: ${{ github.head_ref }}
+#      - name: create title
+#        run: |
+#          TITLE=$(echo ttttttttt)
+#          echo "TITLE = $TITLE"
+#          echo "::set-env name=TITLE::$(echo $TITLE)"
+#      - name: Create Pull Request
+#        #        id: cpr
+#        uses: peter-evans/create-pull-request@v2
+#        with:
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#          title: ${{ env.TITLE }}
+#          body: |
+#            New report
+#          assignees: ${{github.actor}}
+#          #          reviewers: peter-evans
+#          #          team-reviewers: owners, maintainers
+#          #          milestone: 1
+#          #          project: Example Project
+#          #          project-column: To do
+#          draft: false
+##          branch: release/20200412_03
+#          base: master
+#      #          request-to-parent: false
+#      - name: Check outputs
+#        run: |
+#          echo "${{ github.ref }}"
+#          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+#          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
 
 #jobs:
 #  createPullRequest:
