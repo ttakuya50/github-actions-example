@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: get Organization name
           run: |
-            ORGANIZATION=$(echo ${{ github.repository }} | sed -e 's/\/.*//')
+            ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
             echo "ORGANIZATION = $ORGANIZATION"
             echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
       - name: create pull request title
