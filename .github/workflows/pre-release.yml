@@ -16,10 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: get Organization name
-          run: |
-            ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
-            echo "ORGANIZATION = $ORGANIZATION"
-            echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
+        run: |
+          ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
+          echo "ORGANIZATION = $ORGANIZATION"
+          echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
       - name: create pull request title
         run: |
           TITLE=$(echo ${{ github.head_ref }} | sed -e "s/release\//Release\ /g")
