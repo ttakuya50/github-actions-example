@@ -19,10 +19,10 @@ jobs:
           fetch-depth: 0
 #          ref: ${{ github.head_ref }}
       - name: create title
-        - run: |
-        TITLE=$(echo ${{ github.head_ref }} | sed -e "s/release\//Release\ /g")
-        echo "TITLE = $TITLE"
-        echo "::set-env name=TITLE::$(echo $TITLE)"
+        run: |
+          TITLE=$(echo ${{ github.head_ref }} | sed -e "s/release\//Release\ /g")
+          echo "TITLE = $TITLE"
+          echo "::set-env name=TITLE::$(echo $TITLE)"
       - name: Create Pull Request
         #        id: cpr
         uses: peter-evans/create-pull-request@v2
