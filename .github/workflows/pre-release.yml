@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        - ref: ${{ github.head_ref }}
       - name: Create Pull Request
         #        id: cpr
         uses: peter-evans/create-pull-request@v2
@@ -34,7 +35,7 @@ jobs:
           #          project: Example Project
           #          project-column: To do
           draft: false
-          branch: "release/20200412_03"
+          branch: ${{ github.head_ref }}
           base: "master"
       #          request-to-parent: false
       - name: Check outputs
