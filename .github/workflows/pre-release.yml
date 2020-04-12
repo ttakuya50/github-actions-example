@@ -34,8 +34,8 @@ jobs:
           #          project: Example Project
           #          project-column: To do
           draft: false
-          branch: 'release/20200412_02'
-          base: master
+          branch: master
+          base: release/20200412_02
       #          request-to-parent: false
       - name: Check outputs
         run: |
