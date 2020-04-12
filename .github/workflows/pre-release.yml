@@ -34,7 +34,7 @@ jobs:
           #          project: Example Project
           #          project-column: To do
           draft: false
-          branch: 'echo ${{ github.ref }} | sed -e "s/refs\/heads\///g"'
+          branch: 'release/20200412_02'
           base: master
       #          request-to-parent: false
       - name: Check outputs
