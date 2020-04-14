@@ -15,12 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: get Organization name
+      - name: Get organization name
         run: |
           ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
           echo "ORGANIZATION = $ORGANIZATION"
           echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
-      - name: create pull request title
+      - name: Create pull request title
         run: |
           TITLE=$(echo ${{ github.ref }} | sed -e "s/release\//Release\ /g")
           echo "TITLE = $TITLE"
