@@ -25,15 +25,15 @@ jobs:
           TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/release\//Release\ /g")
           echo "TITLE = $TITLE"
           echo "::set-env name=TITLE::$(echo $TITLE)"
-      - name: Create Pull Request
+      - name: Create pull request
         env:
-          URL: https://api.github.com
+#          URL: https://api.github.com
           BODY: body no test
           HEADER: application/vnd.github.sailor-v-preview+json
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-               "https://api.github.com/repos/${{ github.repository }}/pulls" \
-               -d "{"title": "TITLE", "head": "${{ env.ORGANIZATION }}:${{ github.head_ref }}", "base": "master" , "draft":"false"}"
+               -X POST "https://api.github.com/repos/${{ github.repository }}/pulls" \
+               -d "{"title": "TITLE", "head": "${{ env.ORGANIZATION }}:${{ github.head_ref }}", "base": "master" , "body":${ BODY } , "draft":"false"}"
       - name: Check outputs
         run: |
           echo "${{ env.TITLE }}"
