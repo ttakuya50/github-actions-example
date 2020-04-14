@@ -37,6 +37,7 @@ jobs:
         run: |
           echo "${{ env.TITLE }}"
           echo "${{ env.ORGANIZATION }}"
+          echo "${{ env.BODY }}"
 
 #jobs:
 #  createPullRequest:
