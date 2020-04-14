@@ -1,14 +1,14 @@
 name: pre release
 
 # プッシュでトリガー
-on: push
+#on: push
 
-#on:
-#  # プッシュでワークフローを起動する
-#  # ただしreleaseブランチに対してのみ
-#  push:
-#    branches:
-#      - 'release/**'
+on:
+  # プッシュでワークフローを起動する
+  # ただしreleaseブランチに対してのみ
+  push:
+    branches:
+      - 'release/**'
 
 jobs:
   createPullRequest:
