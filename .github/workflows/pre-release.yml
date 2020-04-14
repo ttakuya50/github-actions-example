@@ -22,7 +22,7 @@ jobs:
           echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
       - name: Create pull request title
         run: |
-          TITLE=$(echo ${{ github.ref }} | sed -e "s/release\//Release\ /g")
+          TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/release\//Release\ /g")
           echo "TITLE = $TITLE"
           echo "::set-env name=TITLE::$(echo $TITLE)"
       - name: Create Pull Request
