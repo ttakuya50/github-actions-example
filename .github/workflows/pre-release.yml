@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - 'release/**'
+      - 'hotfix/**'
 
 jobs:
   createPullRequest:
@@ -26,9 +27,14 @@ jobs:
           echo "TITLE = $TITLE"
           echo "::set-env name=TITLE::$(echo $TITLE)"
       - name: Create pull request
-        env:
-          BODY: |
-            - 差分確認用PR
+        run: |
+          BODY=$(cat ../PULL_REQUEST_TEMPLATE.md)
+          echo "BODY = $BODY"
+          echo "::set-env name=BODY::$(echo $BODY)"
+      - name: Create pull request
+#        env:
+#          BODY: |
+#            - 差分確認用PR
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
