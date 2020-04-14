@@ -29,7 +29,6 @@ jobs:
         env:
           BODY: |
             - 差分確認用PR
-        #          HEADER: application/vnd.github.sailor-v-preview+json
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
