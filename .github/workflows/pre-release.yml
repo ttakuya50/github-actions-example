@@ -34,7 +34,20 @@ jobs:
       - name: Create pull request
         env:
           BODY: |
-            "- 差分確認用"
+            "## 概要
+
+             * 機能追加、修正内容etc
+
+             ## 仕様書
+
+             * [仕様書URL](http://xxx)
+
+             ## 技術的変更点概要
+
+             * なにを、どう、変更したか
+             * 何のライブラリを追加したか
+             * 複雑なアルゴリズムの説明
+            "
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
