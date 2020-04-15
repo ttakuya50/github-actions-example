@@ -33,7 +33,7 @@ jobs:
 #          echo "::set-env name=BODY::$(echo $BODY)"
       - name: Create pull request
         env:
-          BODY: "- 差分確認用"
+          BODY: "- 差分確認用やで"
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
