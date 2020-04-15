@@ -32,14 +32,12 @@ jobs:
 #          echo "BODY = $BODY"
 #          echo "::set-env name=BODY::$(echo $BODY)"
       - name: Create pull request
-#        env:
-#          BODY: BODY=$(cat .github/PULL_REQUEST_TEMPLATE.md)
+        env:
+          BODY: "- 差分確認用"
         run: |
-          BODY=$(cat .github/PULL_REQUEST_TEMPLATE.md)
-
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
-               -d '{"title": "${{ env.TITLE }}", "head": "${{ env.ORGANIZATION }}:${{ github.ref }}", "base": "master" , "body":"$BODY" , "draft":"false"}'
+               -d '{"title": "${{ env.TITLE }}", "head": "${{ env.ORGANIZATION }}:${{ github.ref }}", "base": "master" , "body":"${{ env.BODY }}" , "draft":"false"}'
       - name: Check outputs
         run: |
           echo "${{ env.TITLE }}"
