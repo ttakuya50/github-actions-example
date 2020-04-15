@@ -28,8 +28,8 @@ jobs:
           echo "::set-env name=TITLE::$(echo $TITLE)"
       - name: Create body
         run: |
-          BODY=$(more .github/PULL_REQUEST_TEMPLATE.md)
-          echo "BODY = $BODY"
+          BODY=$(cat .github/PULL_REQUEST_TEMPLATE.md)
+#          echo "BODY = $BODY"
           echo "::set-env name=BODY::$(echo $BODY)"
       - name: Create pull request
 #        env:
