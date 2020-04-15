@@ -34,7 +34,7 @@ jobs:
       - name: Create pull request
         env:
           BODY: |
-          "- 差分確認用"
+            "- 差分確認用"
         run: |
           curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
                -X POST "https://api.github.com/repos/ttakuya50/github-actions-example/pulls" \
