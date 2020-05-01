@@ -42,8 +42,8 @@ jobs:
           git fetch origin
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git checkout develop
-          git merge --no-ff master
+          git checkout origin/develop
+          git merge --no-ff origin/master
 #      - name: branch delete
 #        run: git branch -d ${{ github.head_ref }}
       - name: Create release
