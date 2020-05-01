@@ -34,7 +34,7 @@ jobs:
         run: |
           git remote add github "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git checkout master
-          git tag -a ${{ env.TAGNAME }}
+          git tag -a github ${{ env.TAGNAME }}
       - name: develop merge
         run: |
           git checkout develop
