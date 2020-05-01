@@ -4,8 +4,7 @@ on:
   pull_request:
     types: closed # プルリクをクローズしたタイミングだけで動かす
     branches:
-      - 'release/**'
-      - 'hotfix/**'
+      - 'master'
 
 # 参考:https://nvie:com/posts/a-successful-git-branching-model/#finishing-a-release-branch:
 jobs:
