@@ -25,7 +25,7 @@ jobs:
           fi
 
           echo "TAGNAME = $TAGNAME"
-          echo "::set-env name=TAGNAME::$(echo TAGNAME)"
+          echo "::set-env name=TAGNAME::$(echo $TAGNAME)"
 #      - name: Create tag
 #        run: |
 #          git tag ${{ github.head_ref }}
@@ -39,6 +39,7 @@ jobs:
           git push origin "${{ env.TAGNAME }}"
       - name: develop merge
         run: |
+          git fetch origin
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git checkout develop
