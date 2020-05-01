@@ -35,10 +35,12 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git checkout master
-          git tag ${{ env.TAGNAME }}
-          git push origin ${{ env.TAGNAME }}
+          git tag "${{ env.TAGNAME }}"
+          git push origin "${{ env.TAGNAME }}"
       - name: develop merge
         run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
           git checkout develop
           git merge --no-ff master
 #      - name: branch delete
