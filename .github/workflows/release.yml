@@ -32,6 +32,7 @@ jobs:
 #          git push origin --tags
       - name: Create tag
         run: |
+          git remote add github "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
           git checkout master
           git tag -a ${{ env.TAGNAME }}
       - name: develop merge
