@@ -43,8 +43,8 @@ jobs:
           git config --global user.name "GitHub Action"
           git fetch origin
           git switch -c origin/develop
-          git merge -m "Merge tag into develop" "${{ env.TAGNAME }}"
-          git push origin origin/develop
+          git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
+          git push origin develop:develop
 #          git merge --allow-unrelated-histories --no-ff origin/master
       - name: Create release
         id: create_release
