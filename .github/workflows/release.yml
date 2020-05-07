@@ -43,7 +43,7 @@ jobs:
           git config --global user.name "GitHub Action"
           git checkout origin/develop
           git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
-          git push origin develop
+          git push
 #          git fetch origin
 #          git switch -c origin/develop
 #          git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
