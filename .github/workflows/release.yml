@@ -39,8 +39,8 @@ jobs:
           git tag "${{ env.TAGNAME }}"
           git checkout origin/develop
           git merge --allow-unrelated-histories --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
-          git push origin
-#          git push origin "${{ env.TAGNAME }}"
+          git push origin "${{ env.TAGNAME }}"
+          git push origin HEAD:develop  
 #      - name: develop merge
 #        run: |
 #          git config --global user.email "action@github.com"
