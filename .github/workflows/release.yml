@@ -42,7 +42,7 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git checkout origin/develop
-          git fetch
+          git fetch origin
           git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
           git push origin develop:develop
 #          git fetch origin
