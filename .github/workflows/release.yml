@@ -34,6 +34,8 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
+          git fetch origin
+          git branch
           git checkout origin/master
           git tag "${{ env.TAGNAME }}"
           git push origin "${{ env.TAGNAME }}"
@@ -41,8 +43,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git checkout origin/develop
           git fetch origin
+          git branch
+          git checkout origin/develop
           git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
           git push origin develop:develop
 #          git fetch origin
