@@ -44,7 +44,7 @@ jobs:
           git fetch origin
           git switch -c origin/develop
           git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
-          git push origin develop
+          git push origin develop:develop
 #          git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
       - name: Create release
         id: create_release
