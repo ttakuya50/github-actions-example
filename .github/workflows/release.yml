@@ -41,10 +41,11 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git fetch origin
-          git switch -c origin/develop
+          git checkout origin/develop
           git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
-          git push origin develop:develop
+          git push origin develop
+#          git fetch origin
+#          git switch -c origin/develop
 #          git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
 #      git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
       - name: Create release
