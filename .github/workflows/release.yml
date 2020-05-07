@@ -37,21 +37,14 @@ jobs:
           git fetch origin
           git checkout origin/master
           git tag "${{ env.TAGNAME }}"
+          git push origin "${{ env.TAGNAME }}"
+      - name: develop merge
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
           git checkout origin/develop
           git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
-          git push origin "${{ env.TAGNAME }}"
-          git push origin HEAD:develop  
-#      - name: develop merge
-#        run: |
-#          git config --global user.email "action@github.com"
-#          git config --global user.name "GitHub Action"
-#          git fetch origin
-#          git checkout origin/develop
-#          git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
-#          git push origin develop:develop
-#          git fetch origin
-#          git switch -c origin/develop
-#          git merge --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
+          git push origin HEAD:develop
 #      git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
       - name: Create release
         id: create_release
