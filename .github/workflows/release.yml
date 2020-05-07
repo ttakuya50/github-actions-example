@@ -39,13 +39,11 @@ jobs:
           git push origin "${{ env.TAGNAME }}"
       - name: develop merge
         run: |
-          git fetch origin
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git checkout origin/develop
-          git merge --no-ff origin/master
-#      - name: branch delete
-#        run: git branch -d ${{ github.head_ref }}
+          git fetch origin
+          git switch -c origin/develop
+          git merge --allow-unrelated-histories --no-ff origin/master
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
