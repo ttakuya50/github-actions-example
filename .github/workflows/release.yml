@@ -34,7 +34,7 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git checkout master
+          git checkout origin/master
           git tag "${{ env.TAGNAME }}"
           git push origin "${{ env.TAGNAME }}"
       - name: develop merge
@@ -43,7 +43,8 @@ jobs:
           git config --global user.name "GitHub Action"
           git fetch origin
           git switch -c origin/develop
-          git merge --allow-unrelated-histories --no-ff origin/master
+          git merge "${{ env.TAGNAME }}"
+#          git merge --allow-unrelated-histories --no-ff origin/master
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
