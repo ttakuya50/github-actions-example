@@ -38,7 +38,7 @@ jobs:
           git checkout origin/master
           git tag "${{ env.TAGNAME }}"
           git checkout origin/develop
-          git merge --allow-unrelated-histories --no-ff -m "Merge tag into develop" "${{ env.TAGNAME }}"
+          git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
           git push origin "${{ env.TAGNAME }}"
           git push origin HEAD:develop  
 #      - name: develop merge
