@@ -42,7 +42,7 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git fetch origin
-          git switch -c origin/develop
+          git switch -c develop
           git merge "${{ env.TAGNAME }}"
           git push origin develop
 #          git merge --allow-unrelated-histories --no-ff origin/master
