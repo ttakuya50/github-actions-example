@@ -10,6 +10,7 @@ jobs:
   deleteBranch:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - name: Delete branch
         run: |
           git push origin :${{ github.head_ref }}
