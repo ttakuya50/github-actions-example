@@ -43,7 +43,6 @@ jobs:
           git merge --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" ${{ github.head_ref }}
           git push origin develop
 #          git fetch -q origin develop
-#          git fetch -q origin develop
 #          git fetch -q origin ${{ github.head_ref }}
 #          git push origin HEAD:develop
 #          git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
