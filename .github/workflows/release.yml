@@ -42,7 +42,6 @@ jobs:
           git checkout develop
           git merge --no-ff ${{ github.head_ref }}
           git push origin develop
-#          git fetch -q origin develop
 #          git push origin HEAD:develop
 #          git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
       - name: Create release
