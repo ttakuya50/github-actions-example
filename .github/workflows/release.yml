@@ -59,4 +59,4 @@ jobs:
           prerelease: false
       - name: Delete branch
         run: |
-          git branch --delete "${{ github.head_ref }}"
+          git push origin :${{ github.head_ref }}
