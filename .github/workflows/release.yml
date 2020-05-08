@@ -40,7 +40,7 @@ jobs:
         run: |
           git checkout ${{ github.head_ref }}
           git checkout develop
-          git merge --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" ${{ github.head_ref }}
+          git merge --no-ff ${{ github.head_ref }}
           git push origin develop
 #          git fetch -q origin develop
 #          git fetch -q origin ${{ github.head_ref }}
