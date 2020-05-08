@@ -26,14 +26,12 @@ jobs:
 
           echo "TAGNAME = $TAGNAME"
           echo "::set-env name=TAGNAME::$(echo $TAGNAME)"
-#      - name: Create tag
-#        run: |
-#          git tag ${{ github.head_ref }}
-#          git push origin --tags
-      - name: Create tag
+      - name: Git config
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
+      - name: Create tag
+        run: |
           git fetch origin
           git checkout origin/master
           git tag "${{ env.TAGNAME }}"
@@ -43,7 +41,6 @@ jobs:
           git checkout origin/develop
           git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
           git push origin HEAD:develop
-#      git merge -m "Merge master into develop" --allow-unrelated-histories --no-ff origin/master
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
