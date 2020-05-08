@@ -38,7 +38,7 @@ jobs:
           git push origin "${{ env.TAGNAME }}"
       - name: develop merge
         run: |
-          git fetch origin
+          git checkout ${{ github.head_ref }}
           git checkout origin/develop
           git merge --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" ${{ github.head_ref }}
           git push origin develop
