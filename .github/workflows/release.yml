@@ -39,8 +39,10 @@ jobs:
       - name: develop merge
         run: |
           git checkout origin/develop
-          git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
-          git push origin HEAD:develop
+          git merge --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ github.head_ref }}"
+          git push origin develop
+#          git push origin HEAD:develop
+#          git merge --allow-unrelated-histories --no-ff -m "Merge tag ${{ env.TAGNAME }} into develop" "${{ env.TAGNAME }}"
       - name: Create release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -51,3 +53,6 @@ jobs:
           release_name: Release ${{ env.TAGNAME }}
           draft: false
           prerelease: false
+      - name: Delete branch
+        run: |
+          git branch --delete "${{ github.head_ref }}"
