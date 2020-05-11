@@ -34,10 +34,10 @@ jobs:
           git config --global user.name "GitHub Action"
       - name: Finish release
         run: |
-          git flow init
           git fetch origin
           git checkout develop
           git checkout master
+          git checkout ${{ github.head_ref }}
           git flow init
           git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
 #      - name: Create tag
