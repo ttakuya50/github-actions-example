@@ -15,8 +15,6 @@ jobs:
     steps:
       - name: Check out code into the Go module directory
         uses: actions/checkout@v2
-      - name: Install git-flow
-        run: sudo apt-get install git-flow
       - name: Create tag name
         run: |
           if [ "`echo ${{ github.head_ref }} | grep release`" ]; then
