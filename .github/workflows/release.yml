@@ -39,6 +39,7 @@ jobs:
           git checkout master
           git flow init -d
           git checkout ${{ github.head_ref }}
+          git branch
           git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
 #      - name: Create tag
 #        run: |
