@@ -37,8 +37,8 @@ jobs:
           git fetch origin
           git checkout develop
           git checkout master
-          git checkout ${{ github.head_ref }}
           git flow init
+          git checkout ${{ github.head_ref }}
           git flow release finish -v -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
 #      - name: Create tag
 #        run: |
