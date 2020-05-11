@@ -33,7 +33,11 @@ jobs:
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
       - name: Finish release
-        run: git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
+        run: |
+          git fetch origin
+          git checkout develop
+          git checkout master
+          git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
 #      - name: Create tag
 #        run: |
 #          git fetch origin
