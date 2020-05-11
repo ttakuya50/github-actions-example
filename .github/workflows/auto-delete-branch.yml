@@ -1,5 +1,6 @@
 name: delete branch
 
+# developに向けて出されたPRだけが対象
 on:
   pull_request:
     types: closed # プルリクをクローズしたタイミングだけで動かす
