@@ -35,10 +35,10 @@ jobs:
       - name: Finish release
         run: |
           git fetch origin
-          git checkout origin/develop
-          git checkout origin/master
-          git flow init
-          git checkout origin/${{ github.head_ref }}
+          git checkout develop
+          git checkout master
+          git flow init -d
+          git checkout ${{ github.head_ref }}
           git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
 #      - name: Create tag
 #        run: |
