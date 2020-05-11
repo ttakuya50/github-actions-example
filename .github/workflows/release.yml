@@ -6,7 +6,8 @@ on:
     branches:
       - 'master'
 
-# 参考:https://nvie:com/posts/a-successful-git-branching-model/#finishing-a-release-branch:
+# git-flowのモデル:https://nvie.com/posts/a-successful-git-branching-model/#finishing-a-release-branch
+# 公式git-flow:https://github.com/nvie/gitflow
 jobs:
   release:
     name: release
@@ -28,33 +29,23 @@ jobs:
 
           echo "TAGNAME = $TAGNAME"
           echo "::set-env name=TAGNAME::$(echo $TAGNAME)"
-      - name: Git config
+      - name: Git config set
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-      - name: Finish release
+      - name: Create tag
         run: |
           git fetch origin
-          git checkout
-          git checkout -b develop origin/develop
-          git checkout master origin/master
-          git flow init -d
-          git checkout ${{ github.head_ref }} origin/${{ github.head_ref }}
-          git branch
-          git flow release finish -m "${{ env.TAGNAME }}" -p ${{ env.TAGNAME }}
-#      - name: Create tag
-#        run: |
-#          git fetch origin
-#          git checkout origin/master
-#          git tag "${{ env.TAGNAME }}"
-#          git push origin "${{ env.TAGNAME }}"
-#      - name: develop merge
-#        run: |
-#          git checkout ${{ github.head_ref }}
-#          git checkout develop
-#          git merge --no-ff ${{ github.head_ref }}
-#          git push origin develop
-      - name: Create release
+          git checkout origin/master
+          git tag "${{ env.TAGNAME }}"
+          git push origin "${{ env.TAGNAME }}"
+      - name: develop merge
+        run: |
+          git checkout ${{ github.head_ref }}
+          git checkout develop
+          git merge --no-ff ${{ github.head_ref }}
+          git push origin develop
+      - name: Create release note
         id: create_release
         uses: actions/create-release@v1.0.0
         env:
