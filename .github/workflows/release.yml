@@ -1,58 +1,58 @@
-name: release
-
-on:
-  pull_request:
-    types: closed # プルリクをクローズしたタイミングだけで動かす
-    branches:
-      - 'master'
-
-# git-flowのモデル:https://nvie.com/posts/a-successful-git-branching-model/#finishing-a-release-branch
-# 公式git-flow:https://github.com/nvie/gitflow
-jobs:
-  release:
-    name: release
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
-      - name: Create tag name
-        run: |
-          if [ "`echo ${{ github.head_ref }} | grep release`" ]; then
-            TAGNAME=$(echo ${{ github.head_ref }} | sed -e "s/release\///g")
-          fi
-
-          if [ "`echo ${{ github.head_ref }} | grep hotfix`" ]; then
-            TAGNAME=$(echo ${{ github.head_ref }} | sed -e "s/hotfix\///g")
-          fi
-
-          echo "TAGNAME = $TAGNAME"
-          echo "::set-env name=TAGNAME::$(echo $TAGNAME)"
-      - name: Git config set
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-      - name: Create tag
-        run: |
-          git fetch origin
-          git checkout origin/master
-          git tag "${{ env.TAGNAME }}"
-          git push origin "${{ env.TAGNAME }}"
-      - name: develop merge
-        run: |
-          git checkout ${{ github.head_ref }}
-          git checkout develop
-          git merge --no-ff ${{ github.head_ref }}
-          git push origin develop
-      - name: Create release note
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ env.TAGNAME }}
-          release_name: Release ${{ env.TAGNAME }}
-          draft: false
-          prerelease: false
-      - name: Delete branch
-        run: |
-          git push origin :${{ github.head_ref }}
+#name: release
+#
+#on:
+#  pull_request:
+#    types: closed # プルリクをクローズしたタイミングだけで動かす
+#    branches:
+#      - 'master'
+#
+## git-flowのモデル:https://nvie.com/posts/a-successful-git-branching-model/#finishing-a-release-branch
+## 公式git-flow:https://github.com/nvie/gitflow
+#jobs:
+#  release:
+#    name: release
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Check out code into the Go module directory
+#        uses: actions/checkout@v2
+#      - name: Create tag name
+#        run: |
+#          if [ "`echo ${{ github.head_ref }} | grep release`" ]; then
+#            TAGNAME=$(echo ${{ github.head_ref }} | sed -e "s/release\///g")
+#          fi
+#
+#          if [ "`echo ${{ github.head_ref }} | grep hotfix`" ]; then
+#            TAGNAME=$(echo ${{ github.head_ref }} | sed -e "s/hotfix\///g")
+#          fi
+#
+#          echo "TAGNAME = $TAGNAME"
+#          echo "::set-env name=TAGNAME::$(echo $TAGNAME)"
+#      - name: Git config set
+#        run: |
+#          git config --global user.email "action@github.com"
+#          git config --global user.name "GitHub Action"
+#      - name: Create tag
+#        run: |
+#          git fetch origin
+#          git checkout origin/master
+#          git tag "${{ env.TAGNAME }}"
+#          git push origin "${{ env.TAGNAME }}"
+#      - name: develop merge
+#        run: |
+#          git checkout ${{ github.head_ref }}
+#          git checkout develop
+#          git merge --no-ff ${{ github.head_ref }}
+#          git push origin develop
+#      - name: Create release note
+#        id: create_release
+#        uses: actions/create-release@v1.0.0
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          tag_name: ${{ env.TAGNAME }}
+#          release_name: Release ${{ env.TAGNAME }}
+#          draft: false
+#          prerelease: false
+#      - name: Delete branch
+#        run: |
+#          git push origin :${{ github.head_ref }}
