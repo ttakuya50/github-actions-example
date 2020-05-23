@@ -1,44 +1,44 @@
-name: create pull request
-
-on:
-  # プッシュでワークフローを起動する
-  # ただしrelease・hotfixブランチに対してのみ
-  push:
-    branches:
-      - 'release/**'
-      - 'hotfix/**'
-
-jobs:
-  createPullRequest:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Get organization name
-        run: |
-          ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
-          echo "ORGANIZATION = $ORGANIZATION"
-          echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
-      - name: Create pull request title
-        run: |
-          if [ "`echo ${{ github.ref }} | grep release`" ]; then
-            TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/release\//Release\ /g")
-          fi
-
-          if [ "`echo ${{ github.ref }} | grep hotfix`" ]; then
-            TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/hotfix\//Hotfix\ /g")
-          fi
-
-          echo "TITLE = $TITLE"
-          echo "::set-env name=TITLE::$(echo $TITLE)"
-      - name: Create pull request
-        env:
-          BODY: "- リリース差分確認用"
-        run: |
-          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-               -X POST "https://api.github.com/repos/${{ github.repository }}/pulls" \
-               -d '{"title": "${{ env.TITLE }}", "head": "${{ env.ORGANIZATION }}:${{ github.ref }}", "base": "master" , "body":"${{ env.BODY }}" , "draft":"false"}'
-      - name: Check outputs
-        run: |
-          echo "${{ github.ref }}"
-          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
-          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
+#name: create pull request
+#
+#on:
+#  # プッシュでワークフローを起動する
+#  # ただしrelease・hotfixブランチに対してのみ
+#  push:
+#    branches:
+#      - 'release/**'
+#      - 'hotfix/**'
+#
+#jobs:
+#  createPullRequest:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Get organization name
+#        run: |
+#          ORGANIZATION=$(echo ${{ github.repository }} | sed -e "s/\/.*//")
+#          echo "ORGANIZATION = $ORGANIZATION"
+#          echo "::set-env name=ORGANIZATION::$(echo $ORGANIZATION)"
+#      - name: Create pull request title
+#        run: |
+#          if [ "`echo ${{ github.ref }} | grep release`" ]; then
+#            TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/release\//Release\ /g")
+#          fi
+#
+#          if [ "`echo ${{ github.ref }} | grep hotfix`" ]; then
+#            TITLE=$(echo ${{ github.ref }} | sed -e "s/refs\/heads\///g" | sed -e "s/hotfix\//Hotfix\ /g")
+#          fi
+#
+#          echo "TITLE = $TITLE"
+#          echo "::set-env name=TITLE::$(echo $TITLE)"
+#      - name: Create pull request
+#        env:
+#          BODY: "- リリース差分確認用"
+#        run: |
+#          curl -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+#               -X POST "https://api.github.com/repos/${{ github.repository }}/pulls" \
+#               -d '{"title": "${{ env.TITLE }}", "head": "${{ env.ORGANIZATION }}:${{ github.ref }}", "base": "master" , "body":"${{ env.BODY }}" , "draft":"false"}'
+#      - name: Check outputs
+#        run: |
+#          echo "${{ github.ref }}"
+#          echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
+#          echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
