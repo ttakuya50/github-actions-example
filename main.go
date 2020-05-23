@@ -1,11 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/iancoleman/strcase"
+)
 
 func main() {
-	fmt.Print(sum(1, 3))
+	fmt.Println(sum(1, 3))
+	fmt.Println(ToSnake())
 }
 
 func sum(a, b int) int {
 	return a + b
+}
+
+func ToSnake() string {
+	return strcase.ToSnake("UserStart")
 }
