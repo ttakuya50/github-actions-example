@@ -6,6 +6,7 @@ on:
     types: closed # プルリクをクローズしたタイミングだけで動かす
     branches:
       - 'develop'
+      - 'feature/**'
 
 jobs:
   deleteBranch:
