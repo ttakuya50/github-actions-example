@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Set assignees
         env:
-          ASSIGNEES: "${{ github.actor }}" # アサインするユーザー
+          ASSIGNEES: "${{ github.actor }}" # アサインするユーザーを指定
         run: |
           assignee_count=$(cat ${{ github.event_path }} | jq '.pull_request.assignees | length')
           if [[ 0 == $assignee_count ]]; then
