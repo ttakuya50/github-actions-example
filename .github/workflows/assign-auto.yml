@@ -2,7 +2,7 @@ name: assign auto
 
 on:
   pull_request:
-    types: opened # プルリクを作成したタイミングだけで動かす
+    types: opened # プルリクを作成したタイミングだけで起動
 
 jobs:
   assign:
