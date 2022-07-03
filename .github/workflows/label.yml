@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: label
         uses: b4b4r07/action-github-comment@v1
-        if: pull_requests.labeled == ''
+        if: github.event.pull_request.labeled == ''
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LOG: trace
