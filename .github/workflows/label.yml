@@ -1,0 +1,22 @@
+name: assign auto
+
+on:
+  pull_request:
+    types: opened # プルリクを作成したタイミングだけで動かす
+
+jobs:
+  assign:
+    name: label
+    runs-on: ubuntu-latest
+    steps:
+      - name: label
+        uses: b4b4r07/action-github-comment@v1
+        if: ${{ env.labelId == '' && env.labelDescription == '' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LOG: trace
+        with:
+          body: |
+            ```text
+            ラベルを付けてください
+            ```
