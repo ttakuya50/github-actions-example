@@ -14,7 +14,6 @@ jobs:
         if: github.event.pull_request.labels[0] == null
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LOG: trace
         with:
           body: |
             Due to the fact that we use release-drafter to automate the creation of release notes, please be sure to label your PRs.
