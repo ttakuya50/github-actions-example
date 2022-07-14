@@ -2,7 +2,7 @@ name: label
 
 on:
   pull_request:
-    types: opened # プルリクを作成したタイミングだけで動かす
+    types: [opened,synchronize] # プルリクを作成したタイミングだけで動かす
 
 jobs:
   assign:
@@ -19,5 +19,4 @@ jobs:
           body: |
             ```text
             Due to the fact that we use release-drafter to automate the creation of release notes, please be sure to label your PRs.
-            See here for how it should be labeled.
             ```
