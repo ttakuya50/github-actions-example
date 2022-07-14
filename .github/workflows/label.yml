@@ -18,3 +18,4 @@ jobs:
         with:
           body: |
             Due to the fact that we use release-drafter to automate the creation of release notes, please be sure to label your PRs.
+            See here for how it should be labeled.
